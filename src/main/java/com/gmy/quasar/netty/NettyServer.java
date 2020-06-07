@@ -1,6 +1,7 @@
 package com.gmy.quasar.netty;
 
 import com.gmy.quasar.netty.handler.InBoundHandler;
+import com.gmy.quasar.netty.handler.InBoundHandler2;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
@@ -17,6 +18,8 @@ public class NettyServer {
 
 
     private InBoundHandler inBoundHandler;
+
+    private InBoundHandler2 inBoundHandler2;
 
     private int port;
 
@@ -45,6 +48,7 @@ public class NettyServer {
 //                        Unpooled.copiedBuffer(new byte[]{0x7e,0x7e})));
 //                pipeline.addLast(new StringEncoder());
                 pipeline.addLast(inBoundHandler);
+                pipeline.addLast(inBoundHandler2);
             }
         }).option(ChannelOption.SO_BACKLOG,2048);
         try {
@@ -64,6 +68,7 @@ public class NettyServer {
 
     private void init(){
         this.inBoundHandler = new InBoundHandler();
+        this.inBoundHandler2 = new InBoundHandler2();
     }
 
 
